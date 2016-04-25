@@ -24,7 +24,6 @@ gem 'redis-rails'
 gem 'redis-rack-cache'
 gem 'redis-store'
 
-gem 'faker'
 group :development, :test do
   gem 'faker'
   gem 'simplecov', require: false
@@ -33,8 +32,10 @@ group :development, :test do
   gem 'robocop'
   gem "better_errors"
   gem "binding_of_caller"
-  # gem 'activeadmin', github: 'activeadmin'
-  # gem 'sass-rails'
+  gem 'capybara'
+  gem 'guard-rspec'
+  gem 'spring-commands-rspec'
+  gem 'database_cleaner'
 end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
   	def authenticate!
   	  user = User.get_user(params[:client_id],params[:token])
       unless user
-        render json: {"errors":["Authorized users only."]}
+        render json: {"errors":["Authorized users only."]}, status: 401
       end
       user
     end
