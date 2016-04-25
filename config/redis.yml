@@ -1,0 +1,16 @@
+
+development:
+  name: api
+  redis_connection: redis://localhost:6379/0
+  thread_safe: true
+
+test:
+  name: api
+  redis_connection: redis://@localhost:6379/0
+  thread_safe: true
+
+
+production:
+  name: api
+  redis_connection: redis://username:password@localhost:6379/0
+  thread_safe: true
