@@ -12,7 +12,7 @@ class Api::V1::MessagesController < ApplicationController
   end
 
   def show
-    @messages = Message.where(:category => message_params[:category])
+    @messages = self.authenticate!.where(:category => message_params[:category])
     if @messages
       render json: @messages,
         each_serializer: MessagesSerializer,
@@ -25,7 +25,7 @@ class Api::V1::MessagesController < ApplicationController
   end
 
   def destroy
-    @message = Message.find_by(user: self.authenticate!, id: message_params[:id])
+    @message = self.authenticate!.find_by(id: message_params[:id])
     if @message
       @message.destroy
       render json: success("Delete Success", 200), status: 200
@@ -39,7 +39,7 @@ class Api::V1::MessagesController < ApplicationController
   end
 
   def index
-    @messages = Message.all
+    @messages = self.authenticate!.messages
     if @messages
       render json: @messages,
         serializer: MessagesSerializer,
@@ -52,7 +52,6 @@ class Api::V1::MessagesController < ApplicationController
   end
 
   private
-
     def message_params
       params.permit(:id, :content, :category, :client_id, :token)
     end
@@ -65,27 +64,4 @@ class Api::V1::MessagesController < ApplicationController
       {success: {message: text, status: status}}
     end
 
-    def public_route
-      render json: {
-        data: {
-          message: "Everyone can access this.",
-          user: @user
-        }
-        }, status: 200
-    end
-
-    def members_only
-      if @user
-        render json: {
-          data: {
-            message: "Welcome #{@user.name}",
-            user: @user
-          }
-          }, status: 200
-      else
-          render json: {
-            errors: ["Authorized users only."]
-            }, status: 401
-      end
-    end
 end
