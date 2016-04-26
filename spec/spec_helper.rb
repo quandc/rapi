@@ -3,9 +3,9 @@ require 'database_cleaner'
 
 ENV['RAILS_ENV'] = 'test'
 
-if ENV['CIRCLE_ARTIFACTS']
+if ENV['RSPEC_HTML']
   require 'simplecov'
-  dir = File.join('..', '..', '..', ENV['CIRCLE_ARTIFACTS'], 'simplecov')
+  dir = File.join('..', '..', '..', ENV['RSPEC_HTML'], 'simplecov')
   SimpleCov.coverage_dir(dir)
 
   SimpleCov.minimum_coverage 80.00 # should be 83
@@ -37,6 +37,9 @@ RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
+  config.color = true
+  config.tty = true
+  config.formatter = :documentation
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods

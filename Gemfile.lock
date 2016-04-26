@@ -128,6 +128,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.3.0)
+      byebug (~> 8.0)
+      pry (~> 0.10)
     rack (1.6.4)
     rack-cache (1.6.1)
       rack (>= 0.4)
@@ -255,6 +258,7 @@ DEPENDENCIES
   faker
   guard-rspec
   omniauth
+  pry-byebug
   rack-cors
   rails (= 4.2.5.1)
   rails-api

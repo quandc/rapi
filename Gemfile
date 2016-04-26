@@ -9,7 +9,6 @@ gem 'spring', :group => :development
 
 
 gem 'sqlite3'
-gem 'byebug'
 
 gem "active_model_serializers", "~> 0.9.2"
 gem 'devise'
@@ -36,6 +35,8 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'spring-commands-rspec'
   gem 'database_cleaner'
+  gem 'pry-byebug'
+  gem 'byebug'
 end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

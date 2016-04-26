@@ -4,7 +4,7 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     password pass
     password_confirmation pass
-    tokens "client_id" => {"token"=>"token", "expiry"=>999999999}
+    tokens "client_id" => {"token"=>"token", "expiry"=> 999999999}
     client_id "client_id"
   end
 end
