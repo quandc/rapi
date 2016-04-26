@@ -1,0 +1,16 @@
+redis:
+  image: redis
+  ports:
+    - "6379:6379"
+web:
+  build: .
+  expose:
+    - "3000:3000"
+  environment:
+    - DEBUG=false
+    - SEND_EMAILS=false
+  command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  volumes:
+    - .:/app
+  links:
+    - redis
