@@ -2,8 +2,8 @@ language: ruby
 rvm:
   - 2.2.1
 env:
-  - DB=sqlite
-  - DB=redis
+  - DB=<sqlite></sqlite>
+  # - DB=redis
 scripts:
   - "bundle exec rspec spec/"
 before_script:
