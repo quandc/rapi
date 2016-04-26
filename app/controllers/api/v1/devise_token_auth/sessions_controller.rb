@@ -12,6 +12,7 @@ module DeviseTokenAuth
 
       field = (resource_params.keys.map(&:to_sym) & resource_class.authentication_keys).first
       @resource = nil
+
       if field
         q_value = resource_params[field]
 
@@ -27,8 +28,8 @@ module DeviseTokenAuth
 
         @resource = resource_class.where(q, q_value).first
       end
-
-      if @resource and valid_params?(field, q_value) and @resource.valid_password?(resource_params[:password]) and (!@resource.respond_to?(:active_for_authentication?) or @resource.active_for_authentication?)
+      if @resource and valid_params?(field, q_value) and @resource.valid_password?(resource_params[:password]) 
+      	#and (!@resource.respond_to?(:active_for_authentication?) or @resource.active_for_authentication?)
         # create client id
         @client_id = SecureRandom.urlsafe_base64(nil, false)
         @token     = SecureRandom.urlsafe_base64(nil, false)
@@ -38,9 +39,8 @@ module DeviseTokenAuth
           token: @token,#BCrypt::Password.create(@token),
           expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
         }
-        byebug
         @resource.save
-        sign_in(:user, @resource, store: false)
+        sign_in(:user, @resource, store: false, bypass: true)
         yield if block_given?
 
         render_create_success

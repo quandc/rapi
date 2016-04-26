@@ -1,3 +1,4 @@
+# class User
 class User < ActiveRecord::Base
   # Include default devise modules.
   include DeviseTokenAuth::Concerns::User
@@ -21,9 +22,14 @@ class User < ActiveRecord::Base
   end
 
   def self.get_user(client_id, token)
-  	user = User.where(client_id: client_id).first rescue nil
-  	if user
-  		user.tokens[client_id]["token"] == token ? user : nil
-  	end
+    user = User.where(client_id: client_id).first rescue nil
+    if user
+      begin
+        user.tokens[client_id]['token'] == token ? user : nil
+      rescue
+      	nil
+      end
+    end
   end
 end
+

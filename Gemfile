@@ -1,42 +1,36 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '4.2.5.1'
-
 gem 'rails-api'
-
-gem 'spring', :group => :development
-
-
 gem 'sqlite3'
-
-gem "active_model_serializers", "~> 0.9.2"
+gem 'active_model_serializers', '~> 0.9.2'
 gem 'devise'
 gem 'devise_token_auth'
 # gem 'simple_token_authentication'
 gem 'omniauth'
 gem 'responders', '~> 2.0'
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'redis'
 gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
 gem 'redis-store'
+gem 'robocop'
 
 group :development, :test do
   gem 'faker'
   gem 'simplecov', require: false
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'robocop'
-  gem "better_errors"
-  gem "binding_of_caller"
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'capybara'
   gem 'guard-rspec'
   gem 'spring-commands-rspec'
   gem 'database_cleaner'
   gem 'pry-byebug'
   gem 'byebug'
+  gem 'spring'
 end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
