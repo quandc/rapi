@@ -16,6 +16,7 @@ gem 'redis-rails'
 gem 'redis-rack-cache'
 gem 'redis-store'
 gem 'robocop'
+gem "codeclimate-test-reporter", group: :test, require: nil
 
 group :development, :test do
   gem 'faker'
