@@ -20,7 +20,8 @@ gem "codeclimate-test-reporter", group: :test, require: nil
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'unicorn', platforms: [:ruby]
 gem 'newrelic_rpm'
-
+gem 'pg'
+gem 'net-ssh'
 group :development, :test do
   gem 'faker'
   gem 'simplecov', require: false

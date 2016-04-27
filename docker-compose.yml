@@ -2,15 +2,40 @@ redis:
   image: redis
   ports:
     - "6379:6379"
+
+db:
+  image: postgres:latest
+  ports:
+    - "5432:5432"
+
 web:
   build: .
-  expose:
+  ports:
     - "3000:3000"
+  # expose:
+  #   - "3000"
   environment:
     - DEBUG=false
     - SEND_EMAILS=false
+    - POSTGRES_USER=docker
+    - POSTGRES_PASSWORD=docker
+    - RAILS_ENV=development
   command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  # command: bundle exec unicorn -E development -c config/unicorn/devlopment.rb -d
   volumes:
     - .:/app
   links:
     - redis
+    - db
+
+# nginx:
+#   restart: always
+#   build: ./nginx/
+#   ports:
+#     - "80:80"
+#   volumes:
+#     - /www/static
+#   volumes_from:
+#     - web
+#   links:
+#     - web
