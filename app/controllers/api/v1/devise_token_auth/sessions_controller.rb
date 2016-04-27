@@ -107,7 +107,8 @@ module DeviseTokenAuth
 
     def render_create_success
       render json: {
-        data: { :resource_json => @resource.token_validation_response } 
+        data: { :resource_json => @resource.token_validation_response
+        	.merge!(@resource.tokens[@resource.token_validation_response["client_id"]]) }
       }
     end
 

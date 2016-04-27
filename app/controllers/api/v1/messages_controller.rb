@@ -20,13 +20,16 @@ class Api::V1::MessagesController < ApplicationController
   # example
   # curl -XGET http://localhost:3000/api/v1/messages/:id?token=TOKEN&client_id=CLIENT_ID
   def show
-    @messages = authenticate!.messages.where(category: message_params[:category])
+    @messages = authenticate!.messages.where(id: message_params[:id])
     if @messages
-      render json: @messages, each_serializer: MessagesSerializer, root:
+      render json: @messages, serializer: MessagesSerializer, root:
       'result', status: :ok, event: 'get_message'
     else
       render json: error('Error', 400), status: 400
     end
+  end
+
+  def show_category
   end
 
 
@@ -74,7 +77,7 @@ class Api::V1::MessagesController < ApplicationController
 
   private
     def message_params
-      params.has_key?(:query) ? params.permit(:id).merge!(params.require(:query)
+      params.has_key?(:message) ? params.permit(:id).merge!(params.require(:message)
         .permit(:content, :category, :client_id, :token))
       : params.permit(:id, :content, :category, :client_id, :token)
     end

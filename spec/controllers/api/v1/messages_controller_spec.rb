@@ -45,14 +45,14 @@ RSpec.describe Api::V1::MessagesController, type: :controller do
 
 	describe "Delete message" do
 		it "delete uri with token and don't have any message" do
-			delete :destroy , query: {token: "token", client_id: "client_id" }, :id => 1
+			delete :destroy , message: {token: "token", client_id: "client_id" }, :id => 1
 			expect(response).to have_http_status(400)
 		end
 
 		it "delete uri with token" do
 			FactoryGirl.create(:message, user: user)
 			total_message = Message.count
-			delete :destroy , query: {token: "token", client_id: "client_id" }, :id => 1
+			delete :destroy , message: {token: "token", client_id: "client_id" }, :id => 1
 			expect(response).to have_http_status(202)
 			expect(response.body).to eq "{\"success\":{\"message\":\"Delete Success\",\"status\":202}}"
 			expect(Message.count).to eq (total_message - 1)
@@ -67,7 +67,7 @@ RSpec.describe Api::V1::MessagesController, type: :controller do
 		end
 
 		it "show uri with token" do
-			get :show, :id => 1, query: {token: "token", client_id: "client_id" }
+			get :show, :id => 1, message: {token: "token", client_id: "client_id" }
 			expect(response).to have_http_status(200)
 			expect(response.body).to eq "{\"result\":[]}"
 		end
@@ -75,13 +75,13 @@ RSpec.describe Api::V1::MessagesController, type: :controller do
 
 	describe "update message" do
 		it "update message with token and don't have any message" do
-			put :update, :id => 1, query: {token: "token", client_id: "client_id" }
+			put :update, :id => 1, message: {token: "token", client_id: "client_id" }
 			expect(response).to have_http_status(400)
 			# expect(Message.count).to eq (total_message - 1)
 		end
 		it "update message with token and message exists" do
 			FactoryGirl.create(:message, user: user)
-			put :update, :id => 1, query: {token: "token", client_id: "client_id" }
+			put :update, :id => 1, message: {token: "token", client_id: "client_id" }
 			expect(response).to have_http_status(202)
 			expect(response.body).to eq "{\"success\":{\"message\":\"Update Success\",\"status\":202}}"
 			# expect(Message.count).to eq (total_message - 1)

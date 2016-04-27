@@ -16,8 +16,8 @@ class ApplicationController < ActionController::API
 
     # check user exists via token and client_id
     def authenticate!
-      client_id = params[:client_id] || params[:query][:client_id] rescue nil
-      token = params[:token] || params[:query][:token] rescue nil
+      client_id = params[:client_id] || params[:message][:client_id] rescue nil
+      token = params[:token] || params[:message][:token] rescue nil
       user = User.get_user(client_id, token)
       unless user
         render json: { 'errors' => ['Authorized users only.'] }, status: 401

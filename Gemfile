@@ -17,6 +17,9 @@ gem 'redis-rack-cache'
 gem 'redis-store'
 gem 'robocop'
 gem "codeclimate-test-reporter", group: :test, require: nil
+gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'unicorn', platforms: [:ruby]
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'faker'
@@ -33,14 +36,20 @@ group :development, :test do
   gem 'byebug'
   gem 'spring'
 end
+
+group :deployment do
+  gem 'capistrano', '=3.4.1', require: true
+  gem 'capistrano-rails', require: true
+  gem 'capistrano-rvm', require: true
+  gem 'capistrano-rbenv', require: true
+  gem 'capistrano-bundler', require: true
+  gem 'capistrano3-unicorn', require: true
+end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
+gem 'jbuilder'
 
 # Deploy with Capistrano
 # gem 'capistrano', :group => :development
