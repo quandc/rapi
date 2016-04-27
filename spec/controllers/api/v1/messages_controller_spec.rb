@@ -69,7 +69,7 @@ RSpec.describe Api::V1::MessagesController, type: :controller do
 		it "show uri with token" do
 			get :show, :id => 1, message: {token: "token", client_id: "client_id" }
 			expect(response).to have_http_status(200)
-			expect(response.body).to eq "{\"result\":[]}"
+			expect(response.body).to eq "{\"result\":{\"data\":[],\"event\":\"get_message\"}}"
 		end
 	end
 
