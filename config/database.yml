@@ -6,24 +6,29 @@
 #
 default: &default
   <<: *default
-  adapter: postgresql
-  host: 0.0.0.0
+  # database: db/development.sqlite3
+  adapter: sqlite3
   encoding: unicode
-  database: api
   pool: 5
-  host: db #<%= ENV['POSTGRES_HOST'] %>
-  username: postgres #<%= ENV['POSTGRES_USER'] %>
-  password: #<%= ENV['POSTGRES_PASSWORD'] %>
+  # adapter: postgresql
+  # host: 0.0.0.0
+  # encoding: unicode
+  # database: api
+  # pool: 5
+  # host: db #<%= ENV['POSTGRES_HOST'] %>
+  # username: postgres #<%= ENV['POSTGRES_USER'] %>
+  # password: #<%= ENV['POSTGRES_PASSWORD'] %>
 
 development:
   <<: *default
-  adapter: postgresql
-  encoding: unicode
-  database: api
-  pool: 5
-  host: db #<%= ENV['POSTGRES_HOST'] %>
-  username: postgres #<%= ENV['POSTGRES_USER'] %>
-  password: #<%= ENV['POSTGRES_PASSWORD'] %>
+  database: db/development.sqlite3
+  # adapter: postgresql
+  # encoding: unicode
+  # database: api
+  # pool: 5
+  # host: db #<%= ENV['POSTGRES_HOST'] %>
+  # username: postgres #<%= ENV['POSTGRES_USER'] %>
+  # password: #<%= ENV['POSTGRES_PASSWORD'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

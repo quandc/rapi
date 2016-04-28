@@ -21,15 +21,8 @@ class User < ActiveRecord::Base
     self[:uid] = self[:email] if self[:uid].blank? && self[:email].present?
   end
 
-  def self.get_user(client_id, token)
-    user = User.where(client_id: client_id).first rescue nil
-    if user
-      begin
-        user.tokens[client_id]['token'] == token ? user : nil
-      rescue
-      	nil
-      end
-    end
+  def self.get_user(email)
+    User.find_by(email: email)
   end
 end
 

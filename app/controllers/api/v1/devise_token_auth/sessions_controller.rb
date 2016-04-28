@@ -33,13 +33,17 @@ module DeviseTokenAuth
         # create client id
         @client_id = SecureRandom.urlsafe_base64(nil, false)
         @token     = SecureRandom.urlsafe_base64(nil, false)
+        @time = (Time.now + DeviseTokenAuth.token_lifespan).to_i
         @resource.client_id = @client_id
         @resource.tokens = {}
         @resource.tokens[@client_id] = {
           token: @token,#BCrypt::Password.create(@token),
-          expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
+          expiry: @time
         }
         @resource.save
+        Event.create(:email => @resource.email,
+        	:token => @token,
+        	:client_id => @client_id).update_ttl DeviseTokenAuth.token_lifespan.to_i
         sign_in(:user, @resource, store: false, bypass: true)
         yield if block_given?
 

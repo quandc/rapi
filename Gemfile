@@ -10,18 +10,43 @@ gem 'devise_token_auth'
 gem 'omniauth'
 gem 'responders', '~> 2.0'
 gem 'rack-cors', require: 'rack/cors'
+gem 'robocop'
+gem "codeclimate-test-reporter", group: :test, require: nil
+gem 'sdoc', '~> 0.4.0', group: :doc
+
+
+gem 'unicorn', platforms: [:ruby]
+
+# use monitor of newrelic to alanytics data
+gem 'newrelic_rpm'
+gem 'pg'
+gem 'net-ssh'
+
+# pagination for data
+gem 'kaminari'
+gem 'api-pagination'
+
+# to process background jobs with redis or rabbitmq
+gem 'sidekiq'
+# gem 'resque'
+
+# gem 'amqp'
+
 gem 'redis'
 gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
 gem 'redis-store'
-gem 'robocop'
-gem "codeclimate-test-reporter", group: :test, require: nil
-gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'unicorn', platforms: [:ruby]
-gem 'newrelic_rpm'
-gem 'pg'
-gem 'net-ssh'
+
+# gem 'redic'
+gem 'ohm'
+gem 'ohm-contrib'
+gem 'ohm-expire'
+
+# enable elastic if you use full text search
+gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+
 group :development, :test do
   gem 'faker'
   gem 'simplecov', require: false

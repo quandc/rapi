@@ -18,10 +18,13 @@ class ApplicationController < ActionController::API
     def authenticate!
       client_id = params[:client_id] || params[:message][:client_id] rescue nil
       token = params[:token] || params[:message][:token] rescue nil
-      user = User.get_user(client_id, token)
-      unless user
+      email = Event.find(:token=> token, :client_id=> client_id).to_a.first.email rescue nil
+      if email && session["#{client_id}:#{token}"]
+        return session["#{client_id}:#{token}"]
+      end
+      session["#{client_id}:#{token}"] = User.get_user( email )
+      unless session["#{client_id}:#{token}"]
         render json: { 'errors' => ['Authorized users only.'] }, status: 401
       end
-      user
     end
 end
