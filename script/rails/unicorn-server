@@ -15,14 +15,14 @@ set -e
 USAGE="Usage: $0 <start|stop|restart|upgrade|rotate|force-stop>"
 
 # app settings
-USER=ubuntu
+USER=root
 APP_NAME="api"
-APP_ROOT="/home/$USER/$APP_NAME"
+APP_ROOT="/app"
 ENV="development"
 
 # environment settings
-PATH="/home/$USER/.rvm/shims:/home/$USER/.rvm/bin:$PATH"
-CMD="cd $APP_ROOT && bundle exec unicorn -c config/unicorn/development.rb -E $ENV -D"
+PATH="/usr/local/bundle/bin:/usr/local/bin:$PATH"
+CMD="cd $APP_ROOT && bundle install && bundle exec unicorn -c config/unicorn/development.rb -E $ENV -D"
 PID="$APP_ROOT/shared/pids/unicorn.pid"
 OLD_PID="$PID.oldbin"
 
