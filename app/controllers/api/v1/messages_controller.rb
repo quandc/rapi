@@ -62,8 +62,13 @@ class Api::V1::MessagesController < ApplicationController
   # example
   # curl -XGET http://localhost:3000/api/v1/messages?token=TOKEN&client_id=CLIENT_ID
   def index
-    @messages = Kaminari.paginate_array(authenticate!.messages)
-    .page(params[:page]).per(10) #, per_page: 10
+    if params.key? :category
+      @messages = Kaminari.paginate_array(authenticate!.messages.where('category like ?', "%#{params[:category]}%" ))
+      .page(params[:page]).per(10)
+    else
+      @messages = Kaminari.paginate_array(authenticate!.messages)
+      .page(params[:page]).per(10)
+    end
     render_to_json(@messages, {:error => {:text => "Error", 
       :status => 400}}) do |messages|
         render json: @messages,
