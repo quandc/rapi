@@ -18,6 +18,8 @@ nginx:
   build: ./script/nginx
   ports:
     - "80:80"
+  volumes:
+    - /var/log/nginx/:/var/log/nginx
   links:
     - web
   volumes_from:
@@ -25,7 +27,7 @@ nginx:
 # haproxy:
 #   build: ./script/haproxy
 #   ports:
-#     - "8080:8080"
+#     - "8080:80"
 #   links:
 #     - nginx
 web:
@@ -40,8 +42,8 @@ web:
     - POSTGRES_USER=postgres
     - RAILS_ENV=development
     - REDIS_URI=redis
-  command: service unicorn-server start
-  # command: ./script/rails/docker-entrypoint.sh
+  # command: service unicorn-server start
+  command: ./script/rails/docker-entrypoint.sh
   # command: bundle exec rails s -p 3000 -b '0.0.0.0'
   # command: bundle exec unicorn -E development -c config/unicorn/devlopment.rb -d
   volumes:
@@ -49,16 +51,26 @@ web:
   links:
     - redis
     - db
-
-
-# nginx:
-#   restart: always
-#   build: ./nginx/
-#   ports:
-#     - "80:80"
-#   volumes:
-#     - /www/static
-#   volumes_from:
-#     - web
-#   links:
-#     - web
+elasticsearch:
+  build: ./script/elasticsearch
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+logstash:
+  image: logstash:latest
+  command: logstash -f /etc/logstash/conf.d/logstash.conf
+  volumes:
+    - ./script/logstash/config:/etc/logstash/conf.d
+    - ./log:/tmp/rapi
+  ports:
+    - "5000:5000"
+  links:
+    - elasticsearch
+kibana:
+  build: ./script/kibana/
+  volumes:
+    - ./script/kibana/config/:/opt/kibana/config/
+  ports:
+    - "5601:5601"
+  links:
+    - elasticsearch

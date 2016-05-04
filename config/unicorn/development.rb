@@ -6,7 +6,7 @@ pid               "#{shared_dir}/tmp/pids/unicorn.pid"
 
 # listen
 listen "#{app_path}/shared/tmp/sockets/unicorn.sock", :backlog => 64
-
+listen "0.0.0.0:3000", :tcp_nopush => true
 # logging
 stderr_path "log/unicorn.stderr.log"
 stdout_path "log/unicorn.stdout.log"
